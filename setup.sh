@@ -49,7 +49,6 @@ sudo apt-get -y install \
     libopenexr22 libgstreamer1.0-0 libavcodec57 libavformat57 libavutil55 \
     libswscale4 libgtk-3-0 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0 \
     libcairo-gobject2 libcairo2 libgdk-pixbuf2.0-0 \
-    sl \
     > /dev/null
 
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
