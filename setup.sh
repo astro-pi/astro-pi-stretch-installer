@@ -59,7 +59,7 @@ sudo pip3 install -qr requirements.txt
 
 echo -e "\nTesting importing your Python packages..."
 
-if python3 test.py; then
+if python3 -W ignore test.py; then
     echo -e "\nAll Python libraries imported ok\n"
 else
     echo -e "\nThere were errors with the Python libraries. See above for more information.\n"
@@ -69,7 +69,7 @@ fi
 # Set Chromium homepage and bookmarks
 
 if $desktop; then
-    echo -ne "\nSetting your Chromium homepage and bookmarks...\n"
+    echo -ne "Setting your Chromium homepage and bookmarks...\n"
     python3 chromium.py
 fi
 
