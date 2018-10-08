@@ -16,6 +16,12 @@ import scipy
 import evdev
 import reverse_geocoder
 import logzero
-import keras
-import keras
 import osgeo
+
+# https://github.com/keras-team/keras/issues/1406
+import sys
+import os
+stderr = sys.stderr
+sys.stderr = open(os.devnull, 'w')
+import keras
+sys.stderr = stderr
