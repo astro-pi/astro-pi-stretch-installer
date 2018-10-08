@@ -49,7 +49,7 @@ sudo apt-get -qqy upgrade
 echo -n "."
 sudo apt-get -qqy dist-upgrade
 echo -n "."
-sudo apt-get -y install \
+sudo apt-get install \
     zip wget tree git \
     sense-hat i2c-tools libatlas3-base \
     python3 python3-pip python3-gpiozero python3-rpi.gpio python3-pygame \
@@ -57,29 +57,29 @@ sudo apt-get -y install \
     libhdf5-100 libharfbuzz0b libwebp6 libtiff5 libjasper1 libilmbase12 \
     libopenexr22 libgstreamer1.0-0 libavcodec57 libavformat57 libavutil55 \
     libswscale4 libgtk-3-0 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0 \
-    libcairo-gobject2 libcairo2 libgdk-pixbuf2.0-0 \
-    > /dev/null
+    libcairo-gobject2 libcairo2 libgdk-pixbuf2.0-0 -qqy > /dev/null
 
-# Clone this repo to have
+# Clone this repo to have access to test files and desktop backgrounds
 
 git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
-
+cd astro-pi-stretch-installer
 
 # Remove git if it wasn't installed before
 
 if ! $git_installed; then
     sudo apt-get -y purge git > /dev/null
+    sudo apt-get autoremove > /dev/null
 fi
 
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
 echo -e "\n\nUpdating and upgrading your Python packages..."
 
-sudo pip3 install -qr astro-pi-stretch-installer/requirements.txt
+sudo pip3 install -qr requirements.txt
 
 echo -e "\nTesting importing your Python packages..."
 
-if python3 -W ignore astro-pi-stretch-installer/test.py; then
+if python3 -W ignore test.py; then
     echo -e "\nAll Python libraries imported ok\n"
 else
     echo -e "\nThere were errors with the Python libraries. See above for more information.\n"
@@ -89,14 +89,14 @@ fi
 
 if $desktop; then
     echo -ne "Setting your Chromium homepage and bookmarks...\n"
-    python3 astro-pi-stretch-installer/chromium.py
+    python3 chromium.py
 fi
 
 # Download some desktop background images
 
 if $desktop; then
     echo -ne "\nInstalling desktop backgrounds\n"
-    cp astro-pi-stretch-installer/desktop-backgrounds/* /usr/share/rpd-wallpaper/
+    cp desktop-backgrounds/* /usr/share/rpd-wallpaper/
 
     # Set the desktop background to MSL
 
@@ -111,4 +111,5 @@ else
     echo -e "Astro Pi Installation complete!\n"
 fi
 
+cd ../
 rm -rf astro-pi-stretch-installer
