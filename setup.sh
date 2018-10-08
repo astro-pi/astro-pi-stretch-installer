@@ -30,6 +30,15 @@ else
     echo -ne "\n\nIt looks like you are running Raspbian Lite.\n"
 fi
 
+# Check if git was already installed
+
+git=`dpkg -l | grep "ii  git" | wc -l`
+if [ $git -gt 0 ]; then
+    git_installed=true
+else
+    git_installed=false
+fi
+
 # Update and install apt packages
 
 echo -ne "\nUpdating and upgrading your apt packages"
@@ -41,7 +50,7 @@ echo -n "."
 sudo apt-get -qqy dist-upgrade
 echo -n "."
 sudo apt-get -y install \
-    zip wget tree \
+    zip wget tree git \
     sense-hat i2c-tools libatlas3-base \
     python3 python3-pip python3-gpiozero python3-rpi.gpio python3-pygame \
     python3-picamera python3-colorzero python3-gdal \
@@ -51,11 +60,22 @@ sudo apt-get -y install \
     libcairo-gobject2 libcairo2 libgdk-pixbuf2.0-0 \
     > /dev/null
 
+# Clone this repo to have
+
+git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
+
+
+# Remove git if it wasn't installed before
+
+if ! $git_installed; then
+    sudo apt-get -y purge git > /dev/null
+fi
+
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
 echo -e "\n\nUpdating and upgrading your Python packages..."
 
-sudo pip3 install -qr requirements.txt
+sudo pip3 install -qr astro-pi-stretch-installer/requirements.txt
 
 echo -e "\nTesting importing your Python packages..."
 
@@ -63,36 +83,24 @@ if python3 -W ignore test.py; then
     echo -e "\nAll Python libraries imported ok\n"
 else
     echo -e "\nThere were errors with the Python libraries. See above for more information.\n"
-    exit 1
 fi
 
 # Set Chromium homepage and bookmarks
 
 if $desktop; then
     echo -ne "Setting your Chromium homepage and bookmarks...\n"
-    python3 chromium.py
+    python3 astro-pi-stretch-installer/chromium.py
 fi
 
 # Download some desktop background images
 
-a=https://raw.githubusercontent.com/RaspberryPiFoundation/raspberry-jam-birthday-branding/master/Raspbian%20Desktop%20Backgrounds/Raspberry-Jam-Birthday-Wallpaper-1.png
-b=https://raw.githubusercontent.com/RaspberryPiFoundation/raspberry-jam-birthday-branding/master/Raspbian%20Desktop%20Backgrounds/Raspberry-Jam-Birthday-Wallpaper-2.png
-c=https://raw.githubusercontent.com/RaspberryPiFoundation/raspberry-jam-birthday-branding/master/Raspbian%20Desktop%20Backgrounds/Raspberry-Jam-Birthday-Wallpaper-3.png
-d=https://raw.githubusercontent.com/RaspberryPiFoundation/raspberry-jam-birthday-branding/master/Raspbian%20Desktop%20Backgrounds/Raspberry-Jam-Birthday-Wallpaper-4.png
-
 if $desktop; then
-    echo -ne "\nDownloading desktop backgrounds"
+    echo -ne "\nInstalling desktop backgrounds\n"
+    cp astro-pi-stretch-installer/desktop-backgrounds/* /usr/share/rpd-wallpaper/
 
-    for url in $a $b $c $d; do
-        sudo wget -q $url -P /usr/share/rpd-wallpaper/
-        echo -n "."
-    done
+    # Set the desktop background to MSL
 
-    # Set the desktop background to XXX
-
-    sed -i -e 's/road.jpg/Raspberry-Jam-Birthday-Wallpaper-1.png/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
-
-    echo -e "\n\nDesktop backgrounds downloaded.\n"
+    sed -i -e 's/road.jpg/mission-space-lab.jpg/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
 
     echo -e "Astro Pi Installation complete! Restarting desktop session in 5 seconds...\n"
 
