@@ -79,7 +79,7 @@ sudo pip3 install -qr astro-pi-stretch-installer/requirements.txt
 
 echo -e "\nTesting importing your Python packages..."
 
-if python3 -W ignore test.py; then
+if python3 -W ignore astro-pi-stretch-installer/test.py; then
     echo -e "\nAll Python libraries imported ok\n"
 else
     echo -e "\nThere were errors with the Python libraries. See above for more information.\n"
@@ -110,3 +110,5 @@ if $desktop; then
 else
     echo -e "Astro Pi Installation complete!\n"
 fi
+
+rm -rf astro-pi-stretch-installer
