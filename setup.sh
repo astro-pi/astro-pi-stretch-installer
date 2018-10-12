@@ -96,7 +96,7 @@ fi
 
 if $desktop; then
     echo -ne "\nInstalling desktop backgrounds\n"
-    cp desktop-backgrounds/* /usr/share/rpd-wallpaper/
+    sudo cp desktop-backgrounds/* /usr/share/rpd-wallpaper/
 
     # Set the desktop background to MSL
 
