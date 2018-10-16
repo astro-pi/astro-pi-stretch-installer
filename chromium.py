@@ -23,6 +23,6 @@ if prefs:
 if location == "master":
     with open(master_prefs_file, 'r') as f:
         json.dump(prefs,f)
-elif loaction == "local":
+elif location == "local":
     with open(prefs_file, 'r') as f:
         json.dump(prefs,f)
