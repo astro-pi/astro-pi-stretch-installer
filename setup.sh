@@ -21,6 +21,10 @@ chromium=`dpkg -l | grep chromium | wc -l`
 if [ $chromium -gt 0 ]; then
     desktop=true
     echo "It looks like you are running Raspbian Desktop"
+    # Set Chromium homepage and bookmarks
+    echo "Setting your Chromium homepage and bookmarks..."
+    python3 chromium.py
+
 else
     desktop=false
     echo -e "It looks like you are running Raspbian Lite"
@@ -92,17 +96,10 @@ else
     echo "There were errors with the Python libraries. See above for more information."
 fi
 
-# Set Chromium homepage and bookmarks
-
-if $desktop; then
-    echo "Setting your Chromium homepage and bookmarks..."
-    python3 chromium.py
-fi
-
 # Download some desktop background images
 
 if $desktop; then
-    echo "$Installing desktop backgrounds"
+    echo "Installing desktop backgrounds"
     sudo cp desktop-backgrounds/* /usr/share/rpd-wallpaper/
     # Set the desktop background to MSL
     sed -i -e 's/road.jpg/mission-space-lab.jpg/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
