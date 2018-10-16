@@ -15,6 +15,9 @@ else
     exit 1
 fi
 
+echo "Cloning installation scripts"
+git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
+cd astro-pi-stretch-installer
 # Check we're on desktop or lite
 
 chromium=`dpkg -l | grep chromium | wc -l`
@@ -51,10 +54,6 @@ sudo apt-get -qqy upgrade > /dev/null
 t=`date '+%H:%M:%S'`
 echo "$t Running dist-upgrade"
 sudo apt-get -qqy dist-upgrade > /dev/null
-
-
-git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
-cd astro-pi-stretch-installer
 
 mapfile -t packages < packages.txt
 
