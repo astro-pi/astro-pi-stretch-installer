@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "version 0.1"
 set -eu
 
 source /etc/os-release
