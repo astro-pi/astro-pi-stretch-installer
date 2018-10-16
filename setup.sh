@@ -48,6 +48,10 @@ t=`date '+%H:%M:%S'`
 echo "$t Running dist-upgrade"
 sudo apt-get -qqy dist-upgrade > /dev/null
 
+
+git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
+cd astro-pi-stretch-installer
+
 mapfile -t packages < packages.txt
 
 t=`date '+%H:%M:%S'`
@@ -60,8 +64,7 @@ done
 
 # Clone this repo to have access to test files and desktop backgrounds
 
-git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
-cd astro-pi-stretch-installer
+
 
 # Remove git if it wasn't installed before
 
