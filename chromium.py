@@ -1,7 +1,7 @@
 import json
 
 prefs_file = '/home/pi/.config/chromium/Default/Preferences'
-master_prefs_file = '/usr/lib/chromium-browser/master_Preferences'
+master_prefs_file = '/usr/lib/chromium-browser/master_preferences'
 prefs = {}
 
 try:
