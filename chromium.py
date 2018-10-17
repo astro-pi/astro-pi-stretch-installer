@@ -21,8 +21,8 @@ if prefs:
         'startup_urls': ['http://rpf.io/ap-msl-guide']
     }
 if location == "master":
-    with open(master_prefs_file, 'r') as f:
+    with open(master_prefs_file, 'w') as f:
         json.dump(prefs,f)
 elif location == "local":
-    with open(prefs_file, 'r') as f:
+    with open(prefs_file, 'w') as f:
         json.dump(prefs,f)
