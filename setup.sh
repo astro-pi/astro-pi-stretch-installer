@@ -26,7 +26,7 @@ if [ $chromium -gt 0 ]; then
     echo "It looks like you are running Raspbian Desktop"
     # Set Chromium homepage and bookmarks
     echo "Setting your Chromium homepage and bookmarks..."
-    python3 chromium.py
+    sudo python3 chromium.py
 
 else
     desktop=false
