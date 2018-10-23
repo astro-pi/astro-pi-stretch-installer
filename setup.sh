@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "version 0.9"
+echo "version 1.0"
 set -eu
 
 source /etc/os-release
@@ -70,7 +70,7 @@ echo "$t Installing new apt packages..."
 for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    sudo apt-get install $package -qqy #> /dev/null
+    sudo apt-get install $package -qqy > /dev/null
 done
 
 # Remove git if it wasn't installed before
@@ -90,7 +90,7 @@ echo "$t Updating and upgrading your Python packages..."
 for package in "${py_packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    sudo pip3 install -q $package
+    sudo pip3 install -q $package  > /dev/null
 done
 
 echo "Testing importing your Python packages..."
