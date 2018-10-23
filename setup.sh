@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "version 0.1"
+echo "version 0.7"
 set -eu
 
 source /etc/os-release
@@ -27,9 +27,11 @@ if [ $git -gt 0 ]; then
     git_installed=true
 else
     git_installed=false
+    echo " Installing git"
     sudo apt install git -qqy > /dev/null
 fi
 
+# Clone this repo to have access to test files and desktop backgrounds
 
 echo "Cloning installation scripts"
 git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
@@ -67,12 +69,8 @@ echo "$t Installing new apt packages..."
 for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    sudo apt-get install $package -qqy > /dev/null
+    sudo apt-get install $package -qqy #> /dev/null
 done
-
-# Clone this repo to have access to test files and desktop backgrounds
-
-
 
 # Remove git if it wasn't installed before
 
@@ -84,6 +82,7 @@ fi
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
 mapfile -t py_packages < requirements.txt
+t=`date '+%H:%M:%S'`
 echo "$t Updating and upgrading your Python packages..."
 
 for package in "${py_packages[@]}"; do
