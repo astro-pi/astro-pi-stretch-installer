@@ -103,7 +103,15 @@ if $desktop; then
     # Set the desktop background to MSL
     sed -i -e 's/road.jpg/mission-space-lab.jpg/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
 else
-    echo "Astro Pi Installation complete!"
+    echo " Setting MOTD"
+    sudo /bin/sh motd.txt /etc/motd
+    echo "Implementing performance throttling"
+    sudo sed -i -e 's/#arm_freq=700/arm_freq=600/g' /boot/config.txt
+    sudo echo 'gpu_mem=512' >> /boot/config.txt
+    sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
+    echo "Astro Pi Installation complete! Rebooting in 5 seconds..."
+    sleep 5
+    sudo reboot
 fi
 
 cd ../
