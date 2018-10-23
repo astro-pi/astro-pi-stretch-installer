@@ -113,7 +113,7 @@ else
     sudo /bin/sh motd.txt /etc/motd
     echo "Implementing performance throttling"
     sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
-    echo 'gpu_mem=512' sudo tee -a /boot/config.txt
+    echo 'gpu_mem=512' | sudo tee -a /boot/config.txt
     sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
     echo "Astro Pi Installation complete! Rebooting in 5 seconds..."
     sleep 5
