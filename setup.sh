@@ -15,6 +15,22 @@ else
     exit 1
 fi
 
+echo "Updating and your apt packages"
+t=`date '+%H:%M:%S'`
+echo "$t Running update"
+sudo apt-get -qq update > /dev/null
+
+# Check if git was already installed
+
+git=`dpkg -l | grep "ii  git" | wc -l`
+if [ $git -gt 0 ]; then
+    git_installed=true
+else
+    git_installed=false
+    sudo apt install git -qqy > /dev/null
+fi
+
+
 echo "Cloning installation scripts"
 git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
 cd astro-pi-stretch-installer
@@ -33,21 +49,10 @@ else
     echo -e "It looks like you are running Raspbian Lite"
 fi
 
-# Check if git was already installed
-
-git=`dpkg -l | grep "ii  git" | wc -l`
-if [ $git -gt 0 ]; then
-    git_installed=true
-else
-    git_installed=false
-fi
 
 # Update and install apt packages
 
-echo "Updating and upgrading your apt packages"
-t=`date '+%H:%M:%S'`
-echo "$t Running update"
-sudo apt-get -qq update > /dev/null
+
 t=`date '+%H:%M:%S'`
 echo "$t Running upgrade"
 sudo apt-get -qqy upgrade > /dev/null
