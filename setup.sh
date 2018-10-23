@@ -75,8 +75,9 @@ done
 # Remove git if it wasn't installed before
 
 if ! $git_installed; then
+    echo "Removing git"
     sudo apt-get -y purge git > /dev/null
-    sudo apt-get autoremove > /dev/null
+    sudo apt-get -y autoremove > /dev/null
 fi
 
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
@@ -110,8 +111,8 @@ else
     echo " Setting MOTD"
     sudo /bin/sh motd.txt /etc/motd
     echo "Implementing performance throttling"
-    sudo sed -i -e 's/#arm_freq=700/arm_freq=600/g' /boot/config.txt
-    sudo echo 'gpu_mem=512' >> /boot/config.txt
+    sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
+    echo 'gpu_mem=512' sudo tee -a /boot/config.txt
     sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
     echo "Astro Pi Installation complete! Rebooting in 5 seconds..."
     sleep 5
