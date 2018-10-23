@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "version 0.8"
+echo "version 0.9"
 set -eu
 
 source /etc/os-release
@@ -15,8 +15,7 @@ else
     exit 1
 fi
 
-# update apt
-
+# update apst
 echo "Updating and your apt packages"
 t=`date '+%H:%M:%S'`
 echo "$t Running update"
@@ -24,8 +23,8 @@ sudo apt-get -qq update > /dev/null
 
 # Check if git was already installed
 
-command -v git
-if [ $? == 0 ]; then
+git=`dpkg -l | grep "ii  git" | wc -l`
+if [ $git -gt 0 ]; then
     git_installed=true
 else
     git_installed=false
