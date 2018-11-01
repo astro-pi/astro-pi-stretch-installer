@@ -12,7 +12,7 @@ python3-rpi.gpio
 python3-pygame
 python3-picamera
 python3-colorzero
-python3-gdal   
+python3-gdal
 libhdf5-100
 libharfbuzz0b
 libwebp6
