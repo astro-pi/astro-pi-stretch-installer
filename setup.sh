@@ -15,6 +15,9 @@ else
     exit 1
 fi
 
+echo "Enabling the camera interface"
+sudo raspi-config nonint do_camera 0
+
 # update apst
 echo "Updating and your apt packages"
 t=`date '+%H:%M:%S'`
