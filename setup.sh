@@ -118,16 +118,10 @@ else
     sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
     echo 'gpu_mem=512' | sudo tee -a /boot/config.txt
     sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
-    echo "Astro Pi Installation complete! Rebooting in 5 seconds..."
-    sleep 5
-    sudo reboot
 fi
 
 cd ../
 rm -rf astro-pi-stretch-installer
 
-if $desktop; then
-    echo "Astro Pi Installation complete! Restarting desktop session in 5 seconds..."
-    sleep 5
-    sudo systemctl restart lightdm
-fi
+read -p "Astro Pi Installation complete! Press enter to restart "
+sudo reboot
