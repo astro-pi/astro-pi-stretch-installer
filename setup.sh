@@ -100,7 +100,7 @@ done
 
 cd ../
 
-for package in "opencv-contrib-python-headless grpcio tensorflow"
+for package in "opencv-contrib-python-headless grpcio tensorflow"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
     pip3 install $package --user --find-links=wheels > /dev/null
