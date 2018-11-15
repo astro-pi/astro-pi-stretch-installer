@@ -103,7 +103,7 @@ cd ../
 for package in "opencv-contrib-python-headless grpcio tensorflow"
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    pip3 install $package --user --find-links=wheels
+    pip3 install $package --user --find-links=wheels > /dev/null
 done
 
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
