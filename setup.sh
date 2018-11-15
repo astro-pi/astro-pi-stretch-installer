@@ -90,9 +90,9 @@ echo "$t Updating and upgrading your Python packages..."
 
 mkdir wheels
 cd wheels
-wget https://www.piwheels.org/simple/opencv-contrib-python-headless/opencv_contrib_python_headless-3.4.3.18-cp35-cp35m-linux_armv6l.whl
-wget https://www.piwheels.org/simple/grpcio/grpcio-1.15.0-cp35-cp35m-linux_armv6l.whl
-wget https://www.piwheels.org/simple/tensorflow/tensorflow-1.11.0-cp35-none-linux_armv6l.whl
+wget -q https://www.piwheels.org/simple/opencv-contrib-python-headless/opencv_contrib_python_headless-3.4.3.18-cp35-cp35m-linux_armv6l.whl
+wget -q https://www.piwheels.org/simple/grpcio/grpcio-1.15.0-cp35-cp35m-linux_armv6l.whl
+wget -q https://www.piwheels.org/simple/tensorflow/tensorflow-1.11.0-cp35-none-linux_armv6l.whl
 
 for f in *armv6l.whl;
     do cp $f ${f%armv6l.whl}armv7l.whl;
