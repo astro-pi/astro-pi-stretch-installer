@@ -55,9 +55,7 @@ else
     echo -e "It looks like you are running Raspbian Lite"
 fi
 
-
 # install apt packages
-
 
 t=`date '+%H:%M:%S'`
 echo "$t Running upgrade"
@@ -84,16 +82,39 @@ if ! $git_installed; then
     sudo apt-get -y autoremove > /dev/null
 fi
 
+# Install Python packages
+
+echo "$t Updating and upgrading your Python packages..."
+
+# Install Armv6 versions of opencv/tensorflow/grpcio
+
+mkdir wheels
+cd wheels
+wget https://www.piwheels.org/simple/opencv-contrib-python-headless/opencv_contrib_python_headless-3.4.3.18-cp35-cp35m-linux_armv6l.whl
+wget https://www.piwheels.org/simple/grpcio/grpcio-1.15.0-cp35-cp35m-linux_armv6l.whl
+wget https://www.piwheels.org/simple/tensorflow/tensorflow-1.11.0-cp35-none-linux_armv6l.whl
+
+for f in *armv6l.whl;
+    do cp $f ${f%armv6l.whl}armv7l.whl;
+done
+
+cd ../
+
+for package in "opencv-contrib-python-headless grpcio tensorflow"
+    t=`date '+%H:%M:%S'`
+    echo "$t Installing $package..."
+    pip3 install $package --user --find-links=wheels
+done
+
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
 mapfile -t py_packages < requirements.txt
 t=`date '+%H:%M:%S'`
-echo "$t Updating and upgrading your Python packages..."
 
 for package in "${py_packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    sudo pip3 install -q $package  > /dev/null
+    pip3 install -q $package --user > /dev/null
 done
 
 echo "Testing importing your Python packages..."
@@ -121,7 +142,7 @@ else
 fi
 
 cd ../
-rm -rf astro-pi-stretch-installer
+rm -rf astro-pi-stretch-installer wheels
 
 read -p "Astro Pi Installation complete! Press enter to restart "
 sudo reboot
