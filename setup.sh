@@ -142,7 +142,7 @@ else
 fi
 
 cd ../
-rm -rf astro-pi-stretch-installer wheels
+rm -rf astro-pi-stretch-installer
 
 read -p "Astro Pi Installation complete! Press enter to restart "
 sudo reboot
