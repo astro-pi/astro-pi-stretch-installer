@@ -94,17 +94,17 @@ fi
 
 # Install Python packages
 
+t=`date '+%H:%M:%S'`
 echo "$t Updating and upgrading your Python packages..."
 
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
 mapfile -t packages < requirements.txt
-t=`date '+%H:%M:%S'`
 
 for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    pip3 install -q $package --user > /dev/null
+    sudo pip3 install -q $package > /dev/null
 done
 
 t=`date '+%H:%M:%S'`
@@ -130,7 +130,7 @@ packages="opencv-contrib-python-headless grpcio tensorflow"
 for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    pip3 install $package --user --find-links=wheels > /dev/null
+    sudo pip3 install $package --find-links=wheels > /dev/null
 done
 
 # Download some desktop background images
