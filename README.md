@@ -13,7 +13,7 @@ mission.
 Open a terminal window and type:
 
 ```bash
-curl -sSL http://rpf.io/apstretch | bash
+curl -sSL rpf.io/apstretch | bash
 ```
 
 See [setup.sh](setup.sh) to see what this script does
