@@ -133,8 +133,8 @@ if $desktop; then
     # Set the desktop background to MSL
     sed -i -e 's/road.jpg/mission-space-lab.jpg/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
 else
-    echo " Setting MOTD"
-    sudo /bin/sh motd.txt /etc/motd
+    echo "Setting MOTD"
+    sudo /bin/sh motd.sh /etc/motd
     echo "Implementing performance throttling"
     sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
     echo 'gpu_mem=512' | sudo tee -a /boot/config.txt
