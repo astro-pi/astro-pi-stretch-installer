@@ -107,16 +107,6 @@ for package in "${packages[@]}"; do
     sudo pip3 install -q $package > /dev/null
 done
 
-t=`date '+%H:%M:%S'`
-echo "$t Testing importing your Python packages..."
-
-t=`date '+%H:%M:%S'`
-if python3 -W ignore test.py; then
-    echo "$t All Python libraries imported ok"
-else
-    echo "$t There were errors with the Python libraries. See above for more information."
-fi
-
 # Install Armv6 versions of opencv/tensorflow/grpcio from wheel files
 
 cd wheels
@@ -125,13 +115,30 @@ for f in *armv6l.whl; # rename armv6 wheels to armv7
 done
 cd ../
 
-packages="opencv-contrib-python-headless grpcio tensorflow"
+packages=(
+    opencv-contrib-python-headless
+    grpcio
+    tensorflow
+)
 
 for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
     sudo pip3 install $package --find-links=wheels > /dev/null
 done
+
+# Test Python imports
+
+t=`date '+%H:%M:%S'`
+echo "$t Testing importing your Python packages..."
+
+if python3 -W ignore test.py; then
+    t=`date '+%H:%M:%S'`
+    echo "$t All Python libraries imported ok"
+else
+    t=`date '+%H:%M:%S'`
+    echo "$t There were errors with the Python libraries. See above for more information."
+fi
 
 # Download some desktop background images
 

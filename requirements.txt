@@ -50,7 +50,6 @@ scikit-image==0.14.1
 scikit-learn==0.20.0
 scipy==1.1.0
 SecretStorage==2.3.1
-sense-hat==2.2.0
 six==1.11.0
 spidev==3.3
 tensorboard==1.11.0
