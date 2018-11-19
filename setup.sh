@@ -15,11 +15,16 @@ else
     exit 1
 fi
 
-echo "Enabling the camera interface"
+# Enable the camera
+
+t=`date '+%H:%M:%S'`
+echo "$t Enabling the camera interface"
 sudo raspi-config nonint do_camera 0
 
-# update apst
-echo "Updating and your apt packages"
+# apt update
+
+t=`date '+%H:%M:%S'`
+echo "$t Updating and your apt packages"
 t=`date '+%H:%M:%S'`
 echo "$t Running update"
 sudo apt-get -qq update > /dev/null
@@ -31,13 +36,15 @@ if [ $git -gt 0 ]; then
     git_installed=true
 else
     git_installed=false
-    echo " Installing git"
+    t=`date '+%H:%M:%S'`
+    echo "$t Installing git"
     sudo apt install git -qqy > /dev/null
 fi
 
 # Clone this repo to have access to test files and desktop backgrounds
 
-echo "Cloning installation scripts"
+t=`date '+%H:%M:%S'`
+echo "$t Cloning installation repository"
 git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
 cd astro-pi-stretch-installer
 
@@ -46,13 +53,15 @@ cd astro-pi-stretch-installer
 chromium=`dpkg -l | grep chromium | wc -l`
 if [ $chromium -gt 0 ]; then
     desktop=true
-    echo "It looks like you are running Raspbian Desktop"
+    t=`date '+%H:%M:%S'`
+    echo "$t It looks like you are running Raspbian Desktop"
     # Set Chromium homepage and bookmarks
-    echo "Setting your Chromium homepage and bookmarks..."
+    echo "$t Setting your Chromium homepage and bookmarks..."
     sudo python3 chromium.py
 else
     desktop=false
-    echo -e "It looks like you are running Raspbian Lite"
+    t=`date '+%H:%M:%S'`
+    echo "$t It looks like you are running Raspbian Lite"
 fi
 
 # install apt packages
@@ -77,7 +86,8 @@ done
 # Remove git if it wasn't installed before
 
 if ! $git_installed; then
-    echo "Removing git"
+    t=`date '+%H:%M:%S'`
+    echo "$t Removing git"
     sudo apt-get -y purge git > /dev/null
     sudo apt-get -y autoremove > /dev/null
 fi
@@ -97,12 +107,14 @@ for package in "${packages[@]}"; do
     pip3 install -q $package --user > /dev/null
 done
 
-echo "Testing importing your Python packages..."
+t=`date '+%H:%M:%S'`
+echo "$t Testing importing your Python packages..."
 
+t=`date '+%H:%M:%S'`
 if python3 -W ignore test.py; then
-    echo "All Python libraries imported ok"
+    echo "$t All Python libraries imported ok"
 else
-    echo "There were errors with the Python libraries. See above for more information."
+    echo "$t There were errors with the Python libraries. See above for more information."
 fi
 
 # Install Armv6 versions of opencv/tensorflow/grpcio from wheel files
@@ -123,15 +135,17 @@ done
 
 # Download some desktop background images
 
+t=`date '+%H:%M:%S'`
 if $desktop; then
-    echo "Installing desktop backgrounds"
+    echo "$t Installing desktop backgrounds"
     sudo cp desktop-backgrounds/* /usr/share/rpd-wallpaper/
     # Set the desktop background to MSL
     sed -i -e 's/road.jpg/mission-space-lab.jpg/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
 else
-    echo "Setting MOTD"
+    echo "$t Setting MOTD"
     sudo /bin/sh motd.sh /etc/motd
-    echo "Implementing performance throttling"
+    t=`date '+%H:%M:%S'`
+    echo "$t Implementing performance throttling"
     sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
     echo 'gpu_mem=512' | sudo tee -a /boot/config.txt
     sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
@@ -140,5 +154,5 @@ fi
 cd ../
 rm -rf astro-pi-stretch-installer
 
-read -p "Astro Pi Installation complete! Press enter to restart "
+read -p "$t Astro Pi Installation complete! Press enter to restart "
 sudo reboot
