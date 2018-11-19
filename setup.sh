@@ -40,6 +40,7 @@ fi
 echo "Cloning installation scripts"
 git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
 cd astro-pi-stretch-installer
+
 # Check we're on desktop or lite
 
 chromium=`dpkg -l | grep chromium | wc -l`
@@ -49,7 +50,6 @@ if [ $chromium -gt 0 ]; then
     # Set Chromium homepage and bookmarks
     echo "Setting your Chromium homepage and bookmarks..."
     sudo python3 chromium.py
-
 else
     desktop=false
     echo -e "It looks like you are running Raspbian Lite"
@@ -86,32 +86,12 @@ fi
 
 echo "$t Updating and upgrading your Python packages..."
 
-# Install Armv6 versions of opencv/tensorflow/grpcio
-
-mkdir wheels
-cd wheels
-wget -q https://www.piwheels.org/simple/opencv-contrib-python-headless/opencv_contrib_python_headless-3.4.3.18-cp35-cp35m-linux_armv6l.whl
-wget -q https://www.piwheels.org/simple/grpcio/grpcio-1.15.0-cp35-cp35m-linux_armv6l.whl
-wget -q https://www.piwheels.org/simple/tensorflow/tensorflow-1.11.0-cp35-none-linux_armv6l.whl
-
-for f in *armv6l.whl;
-    do cp $f ${f%armv6l.whl}armv7l.whl;
-done
-
-cd ../
-
-for package in "opencv-contrib-python-headless grpcio tensorflow"; do
-    t=`date '+%H:%M:%S'`
-    echo "$t Installing $package..."
-    pip3 install $package --user --find-links=wheels > /dev/null
-done
-
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
-mapfile -t py_packages < requirements.txt
+mapfile -t packages < requirements.txt
 t=`date '+%H:%M:%S'`
 
-for package in "${py_packages[@]}"; do
+for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
     pip3 install -q $package --user > /dev/null
@@ -124,6 +104,22 @@ if python3 -W ignore test.py; then
 else
     echo "There were errors with the Python libraries. See above for more information."
 fi
+
+# Install Armv6 versions of opencv/tensorflow/grpcio from wheel files
+
+cd wheels
+for f in *armv6l.whl; # rename armv6 wheels to armv7
+    do cp $f ${f%armv6l.whl}armv7l.whl;
+done
+cd ../
+
+packages="opencv-contrib-python-headless grpcio tensorflow"
+
+for package in "${packages[@]}"; do
+    t=`date '+%H:%M:%S'`
+    echo "$t Installing $package..."
+    pip3 install $package --user --find-links=wheels > /dev/null
+done
 
 # Download some desktop background images
 
