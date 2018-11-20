@@ -156,6 +156,9 @@ if $desktop; then
         cp -r $global_config_dir $local_config_dir
     fi
     sed -i -e 's/road.jpg/mission-space-lab.jpg/g' $local_config
+    t=`date '+%H:%M:%S'`
+    echo "$t Installing Mu editor..."
+    sudo apt-get install mu-editor -qqy > /dev/null
 else
     echo "$t Setting MOTD"
     sudo /bin/sh motd.sh /etc/motd
