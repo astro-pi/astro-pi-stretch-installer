@@ -172,5 +172,6 @@ fi
 cd ../
 rm -rf astro-pi-stretch-installer
 
+t=`date '+%H:%M:%S'`
 read -p "$t Astro Pi Installation complete! Press enter to restart "
 sudo reboot
