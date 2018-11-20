@@ -45,6 +45,7 @@ fi
 
 t=`date '+%H:%M:%S'`
 echo "$t Cloning installation repository"
+rm -rf astro-pi-stretch-installer || true # delete if it's already there
 git clone -q https://github.com/astro-pi/astro-pi-stretch-installer
 cd astro-pi-stretch-installer
 
