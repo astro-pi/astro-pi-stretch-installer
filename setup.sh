@@ -38,7 +38,7 @@ else
     git_installed=false
     t=`date '+%H:%M:%S'`
     echo "$t Installing git"
-    sudo apt install git -qqy > /dev/null
+    sudo apt-get install git -qqy > /dev/null
 fi
 
 # Clone this repo to have access to test files and desktop backgrounds
