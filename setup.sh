@@ -24,7 +24,7 @@ sudo raspi-config nonint do_camera 0
 # apt update
 
 t=`date '+%H:%M:%S'`
-echo "$t Updating and your apt packages"
+echo "$t Updating and upgrading your apt packages"
 t=`date '+%H:%M:%S'`
 echo "$t Running update"
 sudo apt-get -qq update > /dev/null
@@ -96,7 +96,7 @@ fi
 # Install Python packages
 
 t=`date '+%H:%M:%S'`
-echo "$t Updating and upgrading your Python packages..."
+echo "$t Installing Python packages..."
 
 # Install Python packages from PyPI/piwheels - versions specified in requirements.txt
 
@@ -166,7 +166,7 @@ else
     echo "$t Implementing performance throttling"
     sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
     sudo sed -i -e 's/gpu_mem=128/gpu_mem=512/g' /boot/config.txt
-    if [ ! grep -q 'maxcpus=1' /boot/cmdline.txt ]; then
+    if ! grep -q 'maxcpus=1' /boot/cmdline.txt; then
         sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
     fi
 fi
