@@ -64,7 +64,7 @@ else
     echo "$t It looks like you are running Raspbian Lite"
 fi
 
-# install apt packages
+# Install apt packages
 
 t=`date '+%H:%M:%S'`
 echo "$t Running upgrade"
@@ -147,7 +147,14 @@ if $desktop; then
     echo "$t Installing desktop backgrounds"
     sudo cp desktop-backgrounds/* /usr/share/rpd-wallpaper/
     # Set the desktop background to MSL
-    sed -i -e 's/road.jpg/mission-space-lab.jpg/g' /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
+    global_config_dir="/etc/xdg/pcmanfm/LXDE-pi"
+    local_config_dir="/home/pi/.config/pcmanfm"
+    local_config="/home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf"
+    if [ ! -e $local_config ]; then
+        mkdir -p $local_config_dir
+        cp -r $global_config_dir $local_config_dir
+    fi
+    sed -i -e 's/road.jpg/mission-space-lab.jpg/g' $local_config
 else
     echo "$t Setting MOTD"
     sudo /bin/sh motd.sh /etc/motd
