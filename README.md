@@ -58,3 +58,7 @@ Performance throttling is introduced when you run the installer on a Lite image.
 ## Download the image
 
 Ready-made images will be available to download soon.
+
+## Testing & feedback
+
+Please test this installer and provide feedback. If you have any issues using the installer, it doesn't work for you, something goes wrong or you have any other issues, please let us know. You can [create a GitHub issue](https://github.com/astro-pi/astro-pi-stretch-installer/issues) or send an email to `ben@raspberrypi.org`.
