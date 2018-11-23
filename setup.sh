@@ -175,4 +175,4 @@ cd ../
 rm -rf astro-pi-stretch-installer
 
 t=`date '+%H:%M:%S'`
-echo "$t Astro Pi Installation complete! Run `sudo reboot` to restart."
+echo "$t Astro Pi Installation complete! Run 'sudo reboot' to restart."
