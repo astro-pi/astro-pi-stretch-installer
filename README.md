@@ -55,11 +55,6 @@ Pi 3 but this installer will install the Pi 1 version which works on both models
 
 Performance throttling is introduced when you run the installer on a Lite image.
 
-If you installed from a Lite image, and you take an SD card from a Pi 3 to a Pi 1,
-it will run slightly slower than a Pi 1 should. To correct this, edit
-`/boot/config.txt` and remove the line `arm_freq=600` and reboot to set it back to
-default.
-
 ## Download the image
 
 Ready-made images will be available to download soon.
