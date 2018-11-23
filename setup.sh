@@ -165,7 +165,7 @@ else
     t=`date '+%H:%M:%S'`
     echo "$t Implementing performance throttling"
     sudo sed -i -e 's/#arm_freq=800/arm_freq=600/g' /boot/config.txt
-    sudo sed -i -e 's/gpu_mem=128/gpu_mem=512/g' /boot/config.txt
+    sudo sed -i -e 's/gpu_mem=128/gpu_mem_512=128\ngpu_mem_1024=640/g' /boot/config.txt
     if ! grep -q 'maxcpus=1' /boot/cmdline.txt; then
         sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
     fi
