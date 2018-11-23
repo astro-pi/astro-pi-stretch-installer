@@ -19,6 +19,10 @@ Make sure you're connected to the internet, open a terminal window and type:
 curl -sSL rpf.io/apstretch | bash
 ```
 
+Please note that the installer only supports **Raspbian Stretch**. You can
+download this from the [downloads page](https://www.raspberrypi.org/downloads/raspbian/)
+on the Raspberry Pi website.
+
 ## What does the installer do?
 
 - Installs apt packages
