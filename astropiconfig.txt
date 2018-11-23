@@ -1,0 +1,11 @@
+gpu_mem_512=128
+gpu_mem_1024=640
+
+[pi1]
+arm_freq=700
+
+[pi2]
+arm_freq=600
+
+[pi3]
+arm_freq=600
