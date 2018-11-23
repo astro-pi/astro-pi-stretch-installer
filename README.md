@@ -1,4 +1,4 @@
-# astro-pi-stretch-installer
+# Astro Pi Stretch Installer
 
 Installer for Astro Pi Stretch SD card image used in the 2018-2019 competition.
 
