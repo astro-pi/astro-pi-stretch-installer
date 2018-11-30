@@ -25,3 +25,5 @@ stderr = sys.stderr
 sys.stderr = open(os.devnull, 'w')
 import keras
 sys.stderr = stderr
+
+reverse_geocoder.search((0, 0))
