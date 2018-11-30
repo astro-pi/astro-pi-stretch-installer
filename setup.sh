@@ -141,8 +141,6 @@ else
     echo "$t There were errors with the Python libraries. See above for more information."
 fi
 
-# Download some desktop background images
-
 t=`date '+%H:%M:%S'`
 if $desktop; then
     echo "$t Installing desktop backgrounds"
