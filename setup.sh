@@ -165,7 +165,7 @@ else
     t=`date '+%H:%M:%S'`
     echo "$t Implementing performance throttling"
     sudo cp astropiconfig.txt /boot/
-    sudo echo "\ninclude astropiconfig.txt" >> /boot/config.txt
+    echo "include astropiconfig.txt" | sudo tee --append /boot/config.txt > /dev/null
     if ! grep -q 'maxcpus=1' /boot/cmdline.txt; then
         sudo sed -i -e 's/rootwait/rootwait maxcpus=1/g' /boot/cmdline.txt
     fi
