@@ -125,7 +125,7 @@ packages=(
 for package in "${packages[@]}"; do
     t=`date '+%H:%M:%S'`
     echo "$t Installing $package..."
-    sudo pip3 install $package --find-links=wheels > /dev/null
+    sudo pip3 install $package --find-links=wheels --no-index > /dev/null
 done
 
 # Test Python imports
