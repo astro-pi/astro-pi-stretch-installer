@@ -61,7 +61,8 @@ Performance throttling is introduced when you run the installer on a Lite image.
 
 ## Download the image
 
-Ready-made images will be available to download soon.
+- [Astro Pi Desktop image](https://downloads.raspberrypi.org/AstroPi/images/AstroPi-2018-12-03/astropi_stretch_desktop.zip)
+- [Astro Pi Lite image](https://downloads.raspberrypi.org/AstroPi_lite/images/AstroPi_lite-2018-12-03/astropi_stretch_lite.zip)
 
 ## Testing & feedback
 
