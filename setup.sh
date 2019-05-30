@@ -170,7 +170,7 @@ else
 fi
 
 cd ../
-rm -rf astro-pi-stretch-installer
+sudo rm -rf astro-pi-stretch-installer
 
 t=`date '+%H:%M:%S'`
 echo "$t Astro Pi Installation complete! Run 'sudo reboot' to restart."
